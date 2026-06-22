@@ -16,6 +16,7 @@ customElements.define('my-button', MyButton);
 
 export class MyServices extends StaticElement {
   files;
+  interval;
 
   template(state) {
     return `
@@ -93,22 +94,22 @@ export class MyServices extends StaticElement {
   }
 
   progress() {
-    clearInterval(this.model.interval);
-    if (this.model.inProgress) {
-      this.model.inProgress = false;
+    clearInterval(this.interval);
+    if (this.getField('inProgress')) {
+      this.setField('inProgress', false);
       ToastService.warning('Progress stopped');
       return;
     }
-    this.model.progress = 0;
-    this.model.inProgress = true;
+    this.setField('progress', 0);
+    this.setField('inProgress', true);
     ToastService.info('Progress started');
-    this.model.interval = setInterval(() => {
-      this.model.progress = (this.model.progress) + 2;
-      if (this.model.progress >= 100) {
-        this.model.progress = 100;
-        clearInterval(this.model.interval);
+    this.interval = setInterval(() => {
+      this.setField('progress', +this.getField('progress') + 2);
+      if (this.getField('progress') >= 100) {
+        this.setField('progress', 100);
+        clearInterval(this.interval);
         ToastService.success('Progress completed');
-        this.model.inProgress = false;
+        this.setField('inProgress', false);
       }
     }, 250);
   }

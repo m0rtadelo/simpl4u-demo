@@ -5,7 +5,7 @@ import { StorageService } from '../../simpl4u/services/storage-service.js';
 
 export class MyForm extends StaticElement {
 
-  constructor() {
+  constructor() { 
     super();
     this.resetForm();
   }
@@ -25,9 +25,9 @@ export class MyForm extends StaticElement {
               <simpl-date class="col-12 col-md-6 col-lg-4" name="birthday" context="${this.context}"></simpl-date>
               <simpl-input class="col-12 col-md-6 col-lg-3" name="nickname" context="${this.context}"></simpl-input>
               <simpl-input class="col-12 col-md-12 col-lg-9" name="company" context="${this.context}"></simpl-input>
-              <simpl-select id="sex" context="${this.context}" required name="sex" items='[{"id":"", "text":""},{"id": "male", "text": "Male"},{"id": "female", "text": "Female"}]'></simpl-select>
+              <simpl-select class="col-12 col-md-6" id="sex" context="${this.context}" required name="sex" items='[{"id":"", "text":""},{"id": "male", "text": "Male"},{"id": "female", "text": "Female"}]'></simpl-select>
+              <simpl-combobox required class="col-12 col-md-6" context="${this.context}" name="country" id="country" items='[{"id":"", "text":""},{"id": "es", "text": "Spain"},{"id": "fr", "text": "France"},{"id": "it", "text": "Italy"}]'></simpl-combobox>
               <simpl-switch context="${this.context}" name="alive" id="alive"></simpl-switch>
-              <simpl-combobox required class="col-12 col-md-12 col-lg-9" context="${this.context}" name="country" id="country" items='[{"id":"", "text":""},{"id": "es", "text": "Spain"},{"id": "fr", "text": "France"},{"id": "it", "text": "Italy"}]'></simpl-combobox>
             </div>
           </div>
           <div class="col-4">
@@ -58,14 +58,14 @@ export class MyForm extends StaticElement {
     const form = this.get('form');
     if(!form.checkValidity())
       return;
-    await StorageService.saveApp(this.context, this.model);
-    await StorageService.saveUser(this.context, this.model);
-    ModalService.message('<pre>' + JSON.stringify(this.model, null, 2) + '</pre>', 'saved-data');
+    await StorageService.saveApp(this.context, this.model[this.context]);
+    await StorageService.saveUser(this.context, this.model[this.context]);
+    ModalService.message('<pre>' + JSON.stringify(this.model[this.context], null, 2) + '</pre>', 'saved-data');
   }
 
   async resetForm() {
-    this.model = await StorageService.loadApp(this.context) || {};
-    this.refresh();
+    this.model[this.context] = await StorageService.loadApp(this.context) || {};
+    setTimeout(() => { this.refresh(true); }); 
   }
 }
 

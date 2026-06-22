@@ -28,7 +28,7 @@ export class MyTodoForm extends StaticElement {
   }
 
   changeSwitch() {
-    this.get('color').hidden = !this.model['custom-color'];
+    this.get('color').hidden = !this.data['custom-color'];
     this.get('color').refresh();
   }
 }
