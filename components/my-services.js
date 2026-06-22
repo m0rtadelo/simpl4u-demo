@@ -3,7 +3,6 @@ import { ReactiveElement } from '../../simpl4u/core/reactive-element.js';
 import { ModalService } from '../../simpl4u/services/modal-service.js';
 import { ToastService } from '../../simpl4u/services/toast-service.js';
 import { FileService } from '../../simpl4u/services/file-service.js';
-import { SimplModel } from '../../simpl4u/models/simpl-model.js';
 import { SpinnerService } from '../../simpl4u/services/spinner-service.js';
 import { StorageService } from '../../simpl4u/services/storage-service.js';
 
@@ -155,7 +154,7 @@ export class MyServices extends StaticElement {
       const json = JSON.parse(content);
       await StorageService.saveAppModel(content);
       StorageService.saveUserModel(content);
-      SimplModel.model = json;
+      this.model = json;
       window.location.reload();
     } catch (error) {
       console.error(error);
