@@ -152,8 +152,8 @@ export class MyServices extends StaticElement {
     try {
       const content = await file.text();
       const json = JSON.parse(content);
-      await StorageService.saveAppModel(content);
-      StorageService.saveUserModel(content);
+      await StorageService.saveAppModel(json);
+      StorageService.saveUserModel(json);
       this.model = json;
       window.location.reload();
     } catch (error) {
