@@ -1,4 +1,4 @@
-import { StaticElement } from '../../simpl4u/core/static-element.js';
+import { StaticElement } from 'simpl4u/core/static-element.js';
 
 class Snake {
   static movement = 2;
